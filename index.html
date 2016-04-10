@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Chat</h1>
+<div id="chat"></div>
+<input id="msg" type="text">
+<script>
+
+  var chat = document.getElementById('chat'),
+      msg = document.getElementById('msg');
+  msg.focus();
+
+  msg.addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+      var s = msg.value;
+      msg.value = '';
+      writeLine(s);
+      socket.send(s);
+    }
+  });
+
+  function writeLine(text) {
+    var line = document.createElement('div');
+    line.innerHTML = '<p>' + text + '</p>';
+    chat.appendChild(line);
+  }
+
+  var socket = new WebSocket('ws://127.0.0.1/chat');
+
+  socket.onopen = function() {
+    writeLine('connected');
+  };
+
+  socket.onclose = function() {
+    writeLine('closed');
+  };
+
+  socket.onmessage = function(event) {
+    writeLine(event.data);
+  };
+
+</script>
+</body>
+</html>
