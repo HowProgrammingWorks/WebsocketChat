@@ -3,16 +3,11 @@ api.fs = require('fs');
 api.http = require('http');
 api.websocket = require('websocket');
 
-var index;
-api.fs.readFile('./index.html', function(err, data) {
-  index = data;
-});
+var index = api.fs.readFileSync('./index.html');
 
 var server = api.http.createServer(function(req, res) {
-  if (req.url === '/') {
-    res.writeHead(200);
-    res.end(index);
-  }
+  res.writeHead(200);
+  res.end(index);
 });
 
 server.listen(80, function() {
