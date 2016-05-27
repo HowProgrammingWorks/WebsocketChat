@@ -28,7 +28,7 @@ input { border: 1px solid green; }
     chat.appendChild(line);
   }
 
-  var socket = new WebSocket('ws://127.0.0.1/chat');
+  var socket = new WebSocket('ws://' + window.location.hostname + '/chat');
 
   socket.onopen = function() {
     writeLine('connected');
