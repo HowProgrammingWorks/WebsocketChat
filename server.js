@@ -1,41 +1,44 @@
+'use strict';
+
 global.api = {};
 api.fs = require('fs');
 api.http = require('http');
 api.websocket = require('websocket');
 
-var index = api.fs.readFileSync('./index.html');
+let index = api.fs.readFileSync('./index.html');
 
-var server = api.http.createServer(function(req, res) {
+let server = api.http.createServer((req, res) => {
   res.writeHead(200);
   res.end(index);
 });
 
-server.listen(80, function() {
+server.listen(80, () => {
   console.log('Listen port 80');
 });
 
-var ws = new api.websocket.server({
+let ws = new api.websocket.server({
   httpServer: server,
   autoAcceptConnections: false
 });
 
-var clients = [];
+let clients = [];
 
-ws.on('request', function(req) {
-  var connection = req.accept('', req.origin);
+ws.on('request', (req) => {
+  let connection = req.accept('', req.origin);
   clients.push(connection);
   console.log('Connected ' + connection.remoteAddress);
-  connection.on('message', function(message) {
-    var dataName = message.type + 'Data',
+  connection.on('message', (message) => {
+    let dataName = message.type + 'Data',
         data = message[dataName];
+    console.dir(message);
     console.log('Received: ' + data);
-    clients.forEach(function(client) {
+    clients.forEach((client) => {
       if (connection !== client) {
         client.send(data);
       }
     });
   });
-  connection.on('close', function(reasonCode, description) {
+  connection.on('close', (reasonCode, description) => {
     console.log('Disconnected ' + connection.remoteAddress);
   });
 });

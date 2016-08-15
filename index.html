@@ -9,13 +9,13 @@ input { border: 1px solid green; }
 </style>
 <script>
 
-  var chat = document.getElementById('chat'),
+  let chat = document.getElementById('chat'),
       msg = document.getElementById('msg');
   msg.focus();
 
-  msg.addEventListener('keydown', function(event) {
+  msg.addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
-      var s = msg.value;
+      let s = msg.value;
       msg.value = '';
       writeLine(s);
       socket.send(s);
@@ -23,22 +23,22 @@ input { border: 1px solid green; }
   });
 
   function writeLine(text) {
-    var line = document.createElement('div');
+    let line = document.createElement('div');
     line.innerHTML = '<p>' + text + '</p>';
     chat.appendChild(line);
   }
 
-  var socket = new WebSocket('ws://127.0.0.1/chat');
+  let socket = new WebSocket('ws://127.0.0.1/chat');
 
-  socket.onopen = function() {
+  socket.onopen = () => {
     writeLine('connected');
   };
 
-  socket.onclose = function() {
+  socket.onclose = () => {
     writeLine('closed');
   };
 
-  socket.onmessage = function(event) {
+  socket.onmessage = (event) => {
     writeLine(event.data);
   };
 
