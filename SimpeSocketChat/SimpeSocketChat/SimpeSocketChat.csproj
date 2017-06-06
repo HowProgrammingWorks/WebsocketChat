@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatServer.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -55,12 +60,18 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Page\css\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Page\css\bootstrap-theme.css" />
+    <Content Include="Page\css\bootstrap-theme.min.css" />
+    <Content Include="Page\css\bootstrap.css" />
+    <Content Include="Page\css\bootstrap.min.css" />
+    <Content Include="Page\css\style.css" />
     <Content Include="Page\index.html" />
     <Content Include="Page\js\app.js" />
+    <Content Include="Page\js\bootstrap.js" />
+    <Content Include="Page\js\bootstrap.min.js" />
+    <Content Include="Page\js\npm.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

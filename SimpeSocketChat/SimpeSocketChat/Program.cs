@@ -13,7 +13,6 @@ namespace SimpeSocketChat
 {
     class Program
     {
-        static int port = 8005; // порт для приема входящих запросов
         static void Main(string[] args)
         {
             var wssv = new WebSocketServer("ws://localhost:8085");
