@@ -11,6 +11,16 @@ input { border: 1px solid green; }
 
   const socket = new WebSocket('ws://127.0.0.1/chat');
 
+  const chat = document.getElementById('chat');
+  const msg = document.getElementById('msg');
+  msg.focus();
+
+  const writeLine = (text) => {
+    const line = document.createElement('div');
+    line.innerHTML = '<p>' + text + '</p>';
+    chat.appendChild(line);
+  };
+
   socket.onopen = () => {
     writeLine('connected');
   };
@@ -23,10 +33,6 @@ input { border: 1px solid green; }
     writeLine(event.data);
   };
 
-  const chat = document.getElementById('chat');
-  const msg = document.getElementById('msg');
-  msg.focus();
-
   msg.addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
       const s = msg.value;
@@ -35,12 +41,6 @@ input { border: 1px solid green; }
       socket.send(s);
     }
   });
-
-  const writeLine = (text) => {
-    const line = document.createElement('div');
-    line.innerHTML = '<p>' + text + '</p>';
-    chat.appendChild(line);
-  };
 
 </script>
 </body>
