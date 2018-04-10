@@ -9,8 +9,9 @@ input { border: 1px solid green; }
 </style>
 <script>
 
-  const socket = new WebSocket('ws://127.0.0.1:8000/chat');
+  const CHAR_RETURN = 13;
 
+  const socket = new WebSocket('ws://127.0.0.1:8000/chat');
   const chat = document.getElementById('chat');
   const msg = document.getElementById('msg');
   msg.focus();
@@ -34,7 +35,7 @@ input { border: 1px solid green; }
   };
 
   msg.addEventListener('keydown', (event) => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === CHAR_RETURN) {
       const s = msg.value;
       msg.value = '';
       writeLine(s);
