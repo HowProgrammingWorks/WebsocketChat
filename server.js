@@ -4,7 +4,7 @@ const fs = require('fs');
 const http = require('http');
 const Websocket = require('websocket').server;
 
-const index = fs.readFileSync('./index.html');
+const index = fs.readFileSync('./index.html', 'utf8');
 
 const server = http.createServer((req, res) => {
   res.writeHead(200);
