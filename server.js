@@ -24,7 +24,7 @@ const clients = [];
 
 ws.on('request', req => {
   const connection = req.accept('', req.origin);
-  clients.push(connection);
+  const clientIndex = clients.push(connection) - 1;
   console.log('Connected ' + connection.remoteAddress);
   connection.on('message', message => {
     const dataName = message.type + 'Data';
@@ -38,6 +38,7 @@ ws.on('request', req => {
     });
   });
   connection.on('close', (reasonCode, description) => {
+    clients.splice(clientIndex, 1);
     console.log('Disconnected ' + connection.remoteAddress);
     console.dir({ reasonCode, description });
   });
