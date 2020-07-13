@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const http = require('http');
-const Websocket = require('websocket').server;
+const WebSocket = require('ws');
 
 const index = fs.readFileSync('./index.html', 'utf8');
 
@@ -15,30 +15,20 @@ server.listen(8000, () => {
   console.log('Listen port 8000');
 });
 
-const ws = new Websocket({
-  httpServer: server,
-  autoAcceptConnections: false
-});
+const ws = new WebSocket.Server({ server });
 
-const clients = [];
-
-ws.on('request', req => {
-  const connection = req.accept('', req.origin);
-  clients.push(connection);
-  console.log('Connected ' + connection.remoteAddress);
+ws.on('connection', (connection, req) => {
+  const ip = req.socket.remoteAddress;
+  console.log(`Connected ${ip}`);
   connection.on('message', message => {
-    const dataName = message.type + 'Data';
-    const data = message[dataName];
-    console.dir(message);
-    console.log('Received: ' + data);
-    clients.forEach(client => {
-      if (connection !== client) {
-        client.send(data);
-      }
-    });
+    console.log('Received: ' + message);
+    for (const client of ws.clients) {
+      if (client.readyState !== WebSocket.OPEN) continue;
+      if (client === connection) continue;
+      client.send(message);
+    }
   });
-  connection.on('close', (reasonCode, description) => {
-    console.log('Disconnected ' + connection.remoteAddress);
-    console.dir({ reasonCode, description });
+  connection.on('close', () => {
+    console.log(`Disconnected ${ip}`);
   });
 });
