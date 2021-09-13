@@ -20,7 +20,7 @@ const ws = new WebSocket.Server({ server });
 ws.on('connection', (connection, req) => {
   const ip = req.socket.remoteAddress;
   console.log(`Connected ${ip}`);
-  connection.on('message', message => {
+  connection.on('message', (message) => {
     console.log('Received: ' + message);
     for (const client of ws.clients) {
       if (client.readyState !== WebSocket.OPEN) continue;
