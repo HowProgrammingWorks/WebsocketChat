@@ -25,7 +25,7 @@ ws.on('connection', (connection, req) => {
     for (const client of ws.clients) {
       if (client.readyState !== WebSocket.OPEN) continue;
       if (client === connection) continue;
-      client.send(message);
+      client.send(message, { binary: false });
     }
   });
   connection.on('close', () => {
