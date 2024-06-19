@@ -5,7 +5,7 @@
   "description": "Websocket Chat Example",
   "license": "MIT",
   "dependencies": {
-    "ws": "^8.17.0"
+    "ws": "^8.17.1"
   },
   "readmeFilename": "README.md"
 }
