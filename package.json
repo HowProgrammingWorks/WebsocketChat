@@ -1,11 +1,15 @@
 {
-  "name": "chatExample",
-  "version": "0.1.5",
-  "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
-  "description": "Websocket Chat Example",
-  "license": "MIT",
-  "dependencies": {
-    "ws": "^8.18.0"
+  "name": "patterns",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint . && prettier -c \"**/*.js\"",
+    "fix": "eslint . --fix && prettier --write \"**/*.js\""
   },
-  "readmeFilename": "README.md"
+  "author": "Timur Shemsedinov",
+  "private": true,
+  "dependencies": {
+    "eslint": "^9.12.0",
+    "eslint-config-metarhia": "^9.1.1",
+    "prettier": "^3.3.3"
+  }
 }
